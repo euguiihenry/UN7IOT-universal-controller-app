@@ -1,0 +1,37 @@
+<main class="flex flex-col flex-auto content-center justify-center gap-8 text-center h-full w-full bg-purple-800 text-white p-4">
+    <p>Modos</p>
+
+    <div class="flex content-center justify-center gap-4">
+        <div *ngFor="let button of modeButtons" class="flex content-center justify-center">
+          <app-default-button  [param]="button">{{button.buttonText}}</app-default-button>
+        </div>
+    </div>
+
+    <p>Botões de Ação</p>
+
+    <div class="flex flex-col content-center justify-center gap-4">
+        <div class="flex content-center justify-center gap-4">
+            <div *ngFor="let button of actionButtons1">
+                <app-default-button class="w-10" [param]="button"></app-default-button>
+            </div>
+        </div>
+    
+        <div class="flex content-center justify-center gap-4">
+            <div *ngFor="let button of actionButtons2">
+                <app-default-button [param]="button"></app-default-button>
+            </div>
+        </div>
+    
+        <div class="flex content-center justify-center gap-4">
+            <div *ngFor="let button of actionButtons3">
+                <app-default-button [param]="button"></app-default-button>
+            </div>
+        </div>
+    
+        <div class="flex content-center justify-center gap-4">
+            <div *ngFor="let button of actionButtons4">
+                <app-default-button [param]="button"></app-default-button>
+            </div>
+        </div>
+    </div>
+</main>
