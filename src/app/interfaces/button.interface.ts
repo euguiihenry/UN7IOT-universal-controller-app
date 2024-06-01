@@ -1,4 +1,4 @@
-export default interface Button {
+export interface Button {
     buttonText: string,
     buttonValue: string,
     buttonType: string

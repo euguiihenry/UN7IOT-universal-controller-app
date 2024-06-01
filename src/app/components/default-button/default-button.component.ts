@@ -1,7 +1,6 @@
-import { Component, Input } from '@angular/core';
-import Button from '../../interfaces/button.interface';
-import { ConnectionApiService } from '../../services/connection-api.service';
-import { getInfoInterface } from '../../interfaces/api.interface';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Button } from '../../interfaces/button.interface';
+import { ButtonActionsService } from '../../services/button-actions/button-actions.service';
 
 @Component({
   selector: 'app-default-button',
@@ -11,49 +10,28 @@ import { getInfoInterface } from '../../interfaces/api.interface';
   styleUrl: './default-button.component.scss'
 })
 export class DefaultButtonComponent {
-  @Input() param: Button = {} as Button;
-  @Input() isDisable: boolean = false;
+  @Input() param: Button = { } as Button;
 
-  constructor(private connection: ConnectionApiService) {
+  constructor(private buttonActions: ButtonActionsService) {
     this.param = {
       buttonText: 'Not Set',
       buttonValue: 'Undefined',
-      buttonType: 'action',
+      buttonType: 'action'
     }
   }
 
-  public sendValue(value: string, type: string): void {
-    if(type === 'mode') {
-      if (value === 'send') {
-        const getInfo: getInfoInterface = {} as getInfoInterface;
-
-        this.connection.getInfo(value).subscribe((data: getInfoInterface) => {
-          getInfo.virtualPort = data.virtualPort;
-          getInfo.atrributedValue = data.atrributedValue;
-        });
-
-        window.alert(getInfo);
-      }
-
-      if (value === 'read') {
-        console.log('Reading value in esp32');
-      }
+  run() {
+    if(this.param.buttonType === 'mode') {
+      this.buttonActions.setModeValue(this.param.buttonValue);
+      this.buttonActions.updateGroupStatus(true);
 
     } else {
-      console.log('Button value: ', value);
-    }
-  }
-
-  getActionValue(valueParam: string): number {
-    let value: number = Number(valueParam);
-    return value;
-  }
-
-  setButtonStatus(): void {
-    if(!this.isDisable) {
-      this.isDisable = true;
-    } else {
-      this.isDisable = false;
+      this.buttonActions.setActionValue(this.param.buttonValue);
+      this.buttonActions.sendUpdateActionRequest(this.param.buttonValue);
+      
+      setTimeout(() => {
+        this.buttonActions.updateGroupStatus(false);
+      }, 4000)
     }
   }
 }
