@@ -16,7 +16,7 @@ export class ConnectionApiService {
 
   constructor(private http: HttpClient) { }
 
-  getInfo(value: string): Observable<any> {
+  getInfo(value: string): Observable<getInfoInterface> {
     const param = {'virtualPort': value};
     const completeUrl = `${this.url}${this.pathType.get}`;
     console.log(completeUrl, param);

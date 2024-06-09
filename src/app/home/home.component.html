@@ -10,6 +10,16 @@
     <p *ngIf="groupEnabled">Botões de Ação</p>
 
     <div *ngIf="groupEnabled" class="flex flex-col content-center justify-center gap-4">
+        <div class="flex content-center justify-center gap-4 pb-4">
+            <app-console></app-console>
+        </div>
+        
+        <div class="flex content-center justify-center gap-4">
+            <div *ngFor="let button of actionButtons0">
+                <app-default-button class="w-10" [param]="button"></app-default-button>
+            </div>
+        </div>
+
         <div class="flex content-center justify-center gap-4">
             <div *ngFor="let button of actionButtons1">
                 <app-default-button class="w-10" [param]="button"></app-default-button>

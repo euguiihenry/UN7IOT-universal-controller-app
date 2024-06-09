@@ -15,7 +15,7 @@ export class ButtonActionsService {
   constructor( private connection: ConnectionApiService ) { 
     this.actionButtonValue = "-1";
     this.activeMode = 'Any';
-    this.modeActivePort = "v4"; // v4 stands for any port configured in the blynk cloud
+    this.modeActivePort = "v5"; // v5 stands for any port not configured in the blynk cloud
   }
 
   /* Action Values:
@@ -38,6 +38,8 @@ export class ButtonActionsService {
         this.modeActivePort = "v0";
       } else if(value === 'send') {
         this.modeActivePort = "v1";
+      } else {
+        this.modeActivePort = "v4";
       }
     }
 
@@ -69,5 +71,9 @@ export class ButtonActionsService {
 
     sendUpdateActionRequest(value: string): void {
       this.connection.update("v3", value);
+    }
+
+    async getModeStatus(getPort: string) {
+      return await this.connection.getInfo(getPort);
     }
 }

@@ -22,16 +22,27 @@ export class DefaultButtonComponent {
 
   run() {
     if(this.param.buttonType === 'mode') {
-      this.buttonActions.setModeValue(this.param.buttonValue);
-      this.buttonActions.updateGroupStatus(true);
+      if (this.param.buttonValue === 'restart') {
+        this.buttonActions.setModeValue("restart");
+        this.buttonActions.setActionValue("-1");
+        this.buttonActions.sendUpdateModeRequest("1");
+
+      } else {
+        this.buttonActions.setModeValue(this.param.buttonValue);
+        this.buttonActions.updateGroupStatus(true);
+      }
 
     } else {
       this.buttonActions.setActionValue(this.param.buttonValue);
       this.buttonActions.sendUpdateActionRequest(this.param.buttonValue);
-      
-      setTimeout(() => {
+
+      if(this.param.buttonValue === 'back') {
         this.buttonActions.updateGroupStatus(false);
-      }, 4000)
+
+      } else {
+        this.buttonActions.setActionValue(this.param.buttonValue);
+        this.buttonActions.sendUpdateActionRequest(this.param.buttonValue);
+      }
     }
   }
 }

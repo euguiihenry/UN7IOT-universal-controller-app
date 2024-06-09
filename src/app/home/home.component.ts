@@ -4,11 +4,12 @@ import { DefaultButtonComponent } from '../components/default-button/default-but
 import { Button } from '../interfaces/button.interface';
 import { ButtonActionsService } from '../services/button-actions/button-actions.service';
 import { Subscription } from 'rxjs';
+import { ConsoleComponent } from '../components/console/console.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, DefaultButtonComponent],
+  imports: [CommonModule, DefaultButtonComponent, ConsoleComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
@@ -21,7 +22,12 @@ export class HomeComponent {
 
   modeButtons: Button[] = [
     { buttonText: 'Gravar', buttonValue: 'read', buttonType: 'mode' },
-    { buttonText: 'Enviar', buttonValue: 'send', buttonType: 'mode' }
+    { buttonText: 'Enviar', buttonValue: 'send', buttonType: 'mode' },
+    { buttonText: 'Reiniciar', buttonValue: 'restart', buttonType: 'mode' }
+  ];
+
+  actionButtons0: Button[] = [
+    { buttonText: 'Voltar', buttonValue: 'back', buttonType: 'action' }
   ];
 
   actionButtons1: Button[] = [
