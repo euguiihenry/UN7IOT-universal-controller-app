@@ -72,8 +72,4 @@ export class ButtonActionsService {
     sendUpdateActionRequest(value: string): void {
       this.connection.update("v3", value);
     }
-
-    async getModeStatus(getPort: string) {
-      return await this.connection.getInfo(getPort);
-    }
 }

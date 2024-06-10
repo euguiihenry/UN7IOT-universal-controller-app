@@ -13,19 +13,15 @@ export class ConsoleComponent {
 
   constructor(private connection: ButtonActionsService) { }
 
-  async getStatus(): Promise<void> { 
-    const modeStatus = await (await this.connection.getModeStatus('v2')).toPromise(); // Subscribe to the Observable and get the value
-    
-    if (modeStatus?.virtualPort === 'v2') {
-      if (modeStatus?.atrributedValue === "Sender Mode") {
-        this.hardwareStatus = 'Enviando Comando';
-
-      } else if (modeStatus?.atrributedValue === "Reader Mode") {
-        this.hardwareStatus = 'Gravando Dados';
-
-      } else {
-        this.hardwareStatus = 'Sem Modo Configurado';
-      }
+  getStatus() { 
+    if(this.connection.getModeValue() === 'Any') {
+      this.hardwareStatus = 'Sem Modo Configurado';
+    } else if (this.connection.getModeValue() === 'send') {
+      this.hardwareStatus = 'Enviando Comando';
+    } else if (this.connection.getModeValue() === 'read') {
+      this.hardwareStatus = 'Gravando Dados';
+    } else {
+      this.hardwareStatus = 'Reiniciando Hardware';
     }
   }
 
